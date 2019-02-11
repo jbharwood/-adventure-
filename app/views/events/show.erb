@@ -14,4 +14,16 @@
   </ul>
   <% end %>
 <p> <% end %> </p>
+<h3>Users Attending</h3>
+<% @event.users.uniq.each do |user| %>
+    <ul>
+      <li><%= link_to user.username, user %></li>
+    </ul>
+<% end %>
+
+<%= form_for :user_event do |f| %>
+  <%= f.label "Want To Attend?" %>
+  <%= f.collection_select :user_event_id, UserEvent.all, :id, :status %>
+  <%= f.submit "Submit"%>
+<% end %>
 <%= link_to 'Events Page', events_path %>

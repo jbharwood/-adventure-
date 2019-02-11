@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :user_achievements
   has_many :achievements, through: :user_achievements
 
+  validates :username, uniqueness: true
+
 
   def my_achievements
     sum = 0
