@@ -1,0 +1,15 @@
+<h1><%= @location.name %> </h1>
+<ul>
+  <li>Address: <%= @location.address %></li>
+  <li>Borough: <%= @location.borough %></li>
+</ul>
+<br>
+<h3>Events Happening Here:</h3>
+<% @location.events.each do |event| %>
+  <ul>
+    <li> <%=link_to event.title, event %>  </li>
+  </ul>
+<% end %>
+
+<br>
+<%= link_to "Back To Locations", locations_path %>

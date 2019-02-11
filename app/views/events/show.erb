@@ -21,9 +21,10 @@
     </ul>
 <% end %>
 
-<%= form_for :user_event do |f| %>
+<%= form_for :user_event, :method => :patch do |f| %>
   <%= f.label "Want To Attend?" %>
   <%= f.collection_select :user_event_id, UserEvent.all, :id, :status %>
-  <%= f.submit "Submit"%>
+  <%= f.submit "Submit" %>
 <% end %>
+<br>
 <%= link_to 'Events Page', events_path %>

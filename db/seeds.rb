@@ -8,6 +8,10 @@
 
 User.create(name: "Sivan", age: 200, borough: "Manhattan", username: "redhead101")
 User.create(name: "Joseph", age: 200, borough: "Brooklyn", username: "brownhead40")
+20.times do
+  User.create(name: Faker::Name.name, age: [*1..100].sample, borough: ["Manhattan", "Bronx", "Brooklyn", "Staten Island", "Queens"].sample, username: Faker::Superhero.name)
+end
+
 
 Location.create(name: "Murphys", address: "11 Broadway", borough: "Manhattan", latitude: "40.7039", longitude: "74.0125")
 
