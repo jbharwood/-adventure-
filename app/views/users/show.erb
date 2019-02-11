@@ -1,0 +1,39 @@
+<h1><%=@user.name %>  </h1>
+<h2>About Me:</h2>
+  <p>Age: <%=@user.age %> </p>
+  <p>Borough: <%=@user.borough %> </p>
+  <br>
+<h2>My Achievements:</h2>
+  <ul>
+    <% @user.achievements.uniq.each do |achievement| %>
+      <li> <%= achievement.title %> at <%= achievement.event.location.name %> -- Points: <%= achievement.points %> </li>
+    <% end %>
+  </ul>
+<h3>Total Points: <%= @user.my_achievements %>  </h3>
+<br>
+
+<h2>Current Events:</h2>
+<% @user.events.uniq.each do |event| %>
+  <% event.user_events.each do |ue| %>
+    <% if ue.status == "Attending" %>
+      <ul>
+        <li> <%= event.title %>  </li>
+        <li> <%= event.location.name %>  </li>
+        <li> <%= event.description %>  </li>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>
+
+<h2>Past Events:</h2>
+<% @user.events.uniq.each do |event| %>
+  <% event.user_events.each do |ue| %>
+    <% if ue.status == "Attended" %>
+      <ul>
+        <li> <%= event.title %>  </li>
+        <li> <%= event.location.name %>  </li>
+        <li> <%= event.description %>  </li>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>
