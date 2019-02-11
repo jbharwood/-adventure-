@@ -8,7 +8,7 @@
 
 User.create(name: "Sivan", age: 200, borough: "Manhattan")
 
-Location.create(name: "Murphys", address: "11 Broadway", borough: "Manhattan")
+Location.create(name: "Murphys", address: "11 Broadway", borough: "Manhattan", latitude: "40.7039", longitude: "74.0125")
 
 Event.create(title: "Happy Hour", description: "this is a happy hour with drinks and food", location_id: 1, event_type: "Happy Hour")
 Event.create(title: "Post Code Challenge Drinks", description: "git this bread, we did it", location_id: 1, event_type: "Happy Hour")
@@ -18,3 +18,5 @@ Achievement.create(title: "Order Nachos", description: "you must get these Nacho
 
 UserEvent.create(user_id: 1, event_id: 1, status: "Attended")
 UserEvent.create(user_id: 1, event_id: 2, status: "Attending")
+UserAchievement.create(user_id: 1, achievement_id: 1, status: "Complete")
+UserAchievement.create(user_id: 1, achievement_id: 2, status: "Incomplete")
