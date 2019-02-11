@@ -10,7 +10,7 @@ User.create(name: "Sivan", age: 200, borough: "Manhattan")
 
 Location.create(name: "Murphys", address: "11 Broadway", borough: "Manhattan")
 
-Event.create(title: "Happy Hour", description: "this is a happy hour with drinks and food", location_id: 1)
+Event.create(title: "Happy Hour", description: "this is a happy hour with drinks and food", location_id: 1, event_type: "Happy Hour")
 
 Achievement.create(title: "Drink 5 beers!", description: "you MUST drink 5 beers....", points: 50, event_id: 1)
 
