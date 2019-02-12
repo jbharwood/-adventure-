@@ -13,7 +13,8 @@ User.create(name: "Joseph", age: 200, borough: "Brooklyn", username: "brownhead4
 end
 
 
-Location.create(name: "Murphys", address: "11 Broadway", borough: "Manhattan", latitude: "40.7039", longitude: "74.0125")
+Location.create(name: "Murphy's Tavern", address: "6 Stone St, New York, NY 10004", borough: "Manhattan", latitude: "40.7039", longitude: "74.0125")
+Location.create(name: "Escape The Room NYC", address: "24 W 25th St floor 8, New York, NY 10010", borough: "Manhattan", latitude: "40.7433", longitude: "73.9903")
 
 Event.create(title: "Happy Hour", description: "this is a happy hour with drinks and food", location_id: 1, event_type: "Happy Hour")
 Event.create(title: "Post Code Challenge Drinks", description: "git this bread, we did it", location_id: 1, event_type: "Happy Hour")

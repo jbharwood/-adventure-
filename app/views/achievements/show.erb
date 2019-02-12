@@ -1,0 +1,12 @@
+<h1><%= @achievement.title %> </h1>
+  <p>Description: <%= @achievement.description %> </p>
+  <p>Points: <%= @achievement.points %> </p>
+  <p>Event: <%= @achievement.event.title %> at <%= @achievement.event.location.name %> </p>
+  <!-- Once we figure out login, we can add the status of this task for the current user (Complete or Incomplete) -->
+<br>
+<h2>These Users have also completed this achievement:</h2>
+<% @achievement.users.each do |user| %>
+  <ul>
+    <li><%=link_to user.name, user %> </li>
+  </ul>
+<% end %>

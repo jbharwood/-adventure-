@@ -1,30 +1,31 @@
 <h1> <%= @event.title %> </h1>
-<p> <%= @event.description %> </p>
-<p> <%= link_to @event.location.name, @event.location %> </p>
-<p>
-<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@event.location.latitude},#{@event.location.longitude}&key=#{Rails.application.credentials.google_maps_api_key}", alt: "Map" %>
-</p>
-<h3>Event Achievements</h3>
-<p> <% @event.achievements.each do |achievement| %> </p>
-<% achievement.user_achievements.each do |a| %>
-  <% if a.status == "Complete"%>
-<% end %>
-  <ul>
-    <li> <%= link_to achievement.title, achievement %> -- <%= achievement.points %> -- <%= a.status %> </li>
-  </ul>
-  <% end %>
-<p> <% end %> </p>
-<h3>Users Attending</h3>
-<% @event.users.uniq.each do |user| %>
-    <ul>
-      <li><%= link_to user.username, user %></li>
-    </ul>
-<% end %>
+  <p> <%= @event.description %> </p>
+  <p>Location: <%= link_to @event.location.name, @event.location %> </p>
 
-<%= form_for :user_event, :method => :patch do |f| %>
-  <%= f.label "Want To Attend?" %>
-  <%= f.collection_select :user_event_id, UserEvent.all, :id, :status %>
-  <%= f.submit "Submit" %>
-<% end %>
+<!-- INSERT MAP HERE -->
+
 <br>
-<%= link_to 'Events Page', events_path %>
+<h3>Event Achievements</h3>
+  <p> <% @event.achievements.each do |achievement| %> </p>
+  <% achievement.user_achievements.each do |a| %>
+    <% if a.status == "Complete"%>
+  <% end %>
+    <ul>
+      <li> <%= link_to achievement.title, achievement %> -- <%= achievement.points %> Points -- <%= a.status %> </li>
+    </ul>
+    <% end %>
+  <p> <% end %> </p>
+  <h3>Users Attending</h3>
+  <% @event.users.uniq.each do |user| %>
+      <ul>
+        <li><%= link_to user.username, user %></li>
+      </ul>
+  <% end %>
+
+  <%= form_for :user_event, :method => :patch do |f| %>
+    <%= f.label "Want To Attend?" %>
+    <%= f.collection_select :user_event_id, UserEvent.all, :id, :status %>
+    <%= f.submit "Submit" %>
+  <% end %>
+  <br>
+  <%= link_to 'Events Page', events_path %>

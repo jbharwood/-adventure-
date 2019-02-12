@@ -2,39 +2,40 @@
   <p>Name: <%=@user.name %> </p>
   <p>Age: <%=@user.age %> </p>
   <p>Borough: <%=@user.borough %> </p>
-  <br>
   <%= link_to "Edit My Profile", edit_user_path %>
-<br>
+<br><br>
+
 <h2>My Achievements:</h2>
   <ul>
     <% @user.achievements.uniq.each do |achievement| %>
       <li> <%= achievement.title %> at <%= achievement.event.location.name %> -- Points: <%= achievement.points %> </li>
     <% end %>
   </ul>
-<h3>Total Points: <%= @user.my_achievements %>  </h3>
+<h4>Total Points: <%= @user.my_achievements %>  </h4>
 <br>
 
-<h2>Current Events:</h2>
+<h2>Events:</h2>
+<h4>Attending:</h4>
 <% @user.events.uniq.each do |event| %>
   <% event.user_events.each do |ue| %>
     <% if ue.status == "Attending" %>
      <p><%= link_to event.title, event %></p>
       <ul>
-        <li> <%= event.location.name %>  </li>
-        <li> <%= event.description %>  </li>
+        <li> Location: <%= event.location.name %>  </li>
+        <li> Description: <%= event.description %>  </li>
       </ul>
     <% end %>
   <% end %>
 <% end %>
 
-<h2>Past Events:</h2>
+<h4>Interested In:</h4>
 <% @user.events.uniq.each do |event| %>
   <% event.user_events.each do |ue| %>
-    <% if ue.status == "Attended" %>
+    <% if ue.status == "Interested" %>
     <p> <%=link_to event.title, event %>  </p>
       <ul>
-        <li> <%= event.location.name %>  </li>
-        <li> <%= event.description %>  </li>
+        <li>Location: <%= event.location.name %>  </li>
+        <li>Description: <%= event.description %>  </li>
       </ul>
     <% end %>
   <% end %>
