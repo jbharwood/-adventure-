@@ -16,10 +16,12 @@ class EventsController < ApplicationController
   end
 
   def new
+    @event = Event.new
   end
 
   def create
     @event = Event.create(event_params)
+    byebug
     redirect_to @event
   end
 

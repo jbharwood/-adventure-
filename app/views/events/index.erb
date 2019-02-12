@@ -30,6 +30,8 @@ body { margin:0; padding:0; }
     <li> <%= event.event_type %> </li>
   </ul>
 <% end %>
+
+<%= button_to "Create An Event", new_event_path, method: "get" %>
   <script>
     let all_event_locs = []
     let all_event_types = []
