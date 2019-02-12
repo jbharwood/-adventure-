@@ -13,6 +13,16 @@ body { margin:0; padding:0; }
 <!-- END OF MAP HEADER -->
 
 <h1>Events</h1>
+<%= form_tag(events_path, method: "get") do %>
+  <label>Categories:</label>
+  <select name="type">
+    <option value="0">Choose a Category</option>
+    <option value="1">Happy Hour</option>
+    <option value="2">Escape Room</option>
+  </select>
+  <%= submit_tag("Submit") %>
+<% end %>
+
 <% @events.each do |event| %>
   <ul>
     <li> <%= link_to event.title, event %> </li>
