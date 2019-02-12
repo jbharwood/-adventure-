@@ -19,6 +19,7 @@ Location.create(name: "Madison Square Park", address: "11 Madison Ave, New York,
 
 Event.create(title: "Happy Hour", description: "this is a happy hour with drinks and food", location_id: 1, event_type: "Happy Hour")
 Event.create(title: "Post Code Challenge Drinks", description: "git this bread, we did it", location_id: 1, event_type: "Happy Hour")
+Event.create(title: "Mod 2 Escape Room", description: "we better escape...", location_id: 2, event_type: "Escape Room")
 
 Achievement.create(title: "Drink 5 beers!", description: "you MUST drink 5 beers....", points: 50, event_id: 1)
 Achievement.create(title: "Order Nachos", description: "you must get these Nachos", points: 10, event_id: 1)

@@ -30,6 +30,7 @@ body { margin:0; padding:0; }
   </script>
 <% end %>
 
+
   <!-- MAP BODY CODE -->
   <body>
   <div id='map'></div>
@@ -72,7 +73,7 @@ body { margin:0; padding:0; }
       if (response && response.body && response.body.features && response.body.features.length) {
         var feature = response.body.features[0];
 
-        new mapboxgl.Marker()
+        new mapboxgl.Marker({color: "red"})
         .setLngLat(feature.center)
         .addTo(map);
       }
