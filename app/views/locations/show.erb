@@ -44,7 +44,7 @@ style: 'mapbox://styles/mapbox/streets-v9',
 center: feature.center,
 zoom: 10
 });
-new mapboxgl.Marker()
+new mapboxgl.Marker({color: 'green'})
 .setLngLat(feature.center)
 .addTo(map);
 }

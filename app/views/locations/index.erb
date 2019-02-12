@@ -43,25 +43,27 @@ body { margin:0; padding:0; }
 
   //step two: for each (hint hint) of the elements in the JS array,
   //send a query to the api and create a new marker, adding it to the extisting map
-
-
-  //all points is what was originally intended to be all_locs
-  // let allPoints = []
-
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v9',
-    center: feature.center,
+    center: [-74.012498, 40.703987],
     zoom: 10
   });
 
+  all_locs.forEach(function(addressString){
+    iteratorCallBack(addressString, map)
+    console.log(map)
+  });
+
+
   //iterate through all_locs array to add markers
-  //in the iteration, invoke the helper method below to create a marker for each location's address 
+  //in the iteration, invoke the helper method below to create a marker for each location's address
 
   function iteratorCallBack(addressString, map){
+    console.log(addressString, map)
     var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
     mapboxClient.geocoding.forwardGeocode({
-      query: "<%= @locations[0].address %>, New York",
+      query: addressString,
       autocomplete: false,
       limit: 1
     })
