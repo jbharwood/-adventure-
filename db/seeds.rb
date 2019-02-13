@@ -33,8 +33,9 @@ Event.create(title: "Picnic", description: "eating food on the grass", location_
 Event.create(title: "Who Escapes The Fastest?", description: "fastest person to escape wins", location_id: 6, event_type: "Escape Room", category_id: 2)
 
 
-Achievement.create(title: "Drink 5 beers!", description: "you MUST drink 5 beers....", points: 50, event_id: 1)
-Achievement.create(title: "Order Nachos", description: "you must get these Nachos", points: 10, event_id: 1)
+Achievement.create(title: "Drink 5 beers!", description: "you MUST drink 5 beers....", points: 50, event_id: 1, category_id: 1)
+Achievement.create(title: "Order Nachos", description: "you must get these Nachos", points: 10, event_id: 1, category_id: 1)
+Achievement.create(title: "Fastest Time", description: "fastest time wins points", points: 100, event_id: 3, category_id: 2)
 
 UserEvent.create(user_id: 1, event_id: 2, status: "Attending")
 UserEvent.create(user_id: 2, event_id: 2, status: "Interested")

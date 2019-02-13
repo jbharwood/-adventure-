@@ -1,0 +1,17 @@
+<h1>Add Achievements:</h1>
+<div class="new_achievement">
+  <%= form_for @achievement do |f| %>
+    <%= f.label "Select Achievements:" %><br>
+    <%= collection_check_boxes(:achievement, :title, Achievement.all, :id, :title)%>
+    <br><br>
+    <%= f.label "Create a New Achievement Here:" %><br>
+    <%= f.label :title %>
+    <%= f.text_field :title %><br>
+    <%= f.label :description %>
+    <%= f.text_area :description %><br>
+    <%= f.label :points %>
+    <%= f.number_field :points %><br>
+    <%= f.collection_select :category_id, Category.all, :id, :name, {:prompt => "Select Category"}%><br><br>
+    <%= f.submit %>
+  <% end %>
+</div>

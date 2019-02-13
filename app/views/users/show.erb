@@ -8,7 +8,10 @@
 <h2>My Achievements:</h2>
   <ul>
     <% @user.achievements.uniq.each do |achievement| %>
-      <li> <%= achievement.title %> at <%= achievement.event.location.name %> -- Points: <%= achievement.points %> </li>
+      <li> <%= achievement.title %> at
+        <% achievement.category.events.each do |event| %>
+          <%= event.location.name %>
+        <% end %> -- Points: <%= achievement.points %> </li>
     <% end %>
   </ul>
 <h4>Total Points: <%= @user.my_achievements %>  </h4>

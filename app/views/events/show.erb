@@ -1,20 +1,21 @@
-<h1> <%= @event.title %> </h1>
-  <p> <%= @event.description %> </p>
-  <p>Location: <%= link_to @event.location.name, @event.location %> </p>
-
+<div class="event_show">
+  <h1> <%= @event.title %> </h1>
+    <p> <%= @event.description %> </p>
+    <p>Location: <%= link_to @event.location.name, @event.location %> </p>
+</div>
 <!-- INSERT MAP HERE -->
 
 <br>
-<h3>Event Achievements</h3>
-  <p> <% @event.achievements.each do |achievement| %> </p>
-  <% achievement.user_achievements.each do |a| %>
-    <% if a.status == "Complete"%>
-  <% end %>
-    <ul>
-      <li> <%= link_to achievement.title, achievement %> -- <%= achievement.points %> Points -- <%= a.status %> </li>
-    </ul>
+<div class="event_show">
+  <h3>Event Achievements</h3>
+    <% @event.category.achievements.each do |achievement| %>
+      <ul>
+        <li> <%= link_to achievement.title, achievement %> -- <%= achievement.points %> Points </li>
+      </ul>
     <% end %>
-  <p> <% end %> </p>
+    <%= button_to "Add Achievements To This Event", new_achievement_path, method: "get" %>
+</div>
+
   <h3>Users Attending</h3>
   <% @event.users.uniq.each do |user| %>
       <ul>

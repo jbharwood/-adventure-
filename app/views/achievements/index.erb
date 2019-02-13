@@ -1,0 +1,6 @@
+<h1>Achievements</h1>
+<% @achievements.each do |achievement| %>
+  <ul>
+    <li><%=link_to achievement.title, achievement %></li>
+  </ul>
+<% end %>

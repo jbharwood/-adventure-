@@ -1,7 +1,6 @@
 class Category < ApplicationRecord
   has_many :events
-  validates :name, uniqueness: true
-
+  has_many :achievements
   # def self.uniq_list
   #   arr = []
   #   self.all.each do |category|

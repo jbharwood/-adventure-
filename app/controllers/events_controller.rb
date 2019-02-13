@@ -31,7 +31,12 @@ class EventsController < ApplicationController
       if params[:type].empty?
         @event.category = Category.create(name: params[:type])
       end
+      if params[:achievement].empty?
+        @event.achievements = Achievement.create(title: params[:title], description: params[:description], points: params[:points])
+      end
       @event.save
+      byebug
+
       redirect_to @event
     else
       flash[:errors] = @event.errors.full_messages
