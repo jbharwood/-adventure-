@@ -15,19 +15,22 @@ body { margin:0; padding:0; }
 <h1>Events</h1>
 <%= form_tag(events_path, method: "get") do %>
   <label>Categories:</label>
-  <select name="type">
+  <select name="type" id="category_dropdown" >
     <option value="0">Choose a Category</option>
     <option value="1">Happy Hour</option>
     <option value="2">Escape Room</option>
+    <option value="3">Park</option>
   </select>
   <%= submit_tag("Submit") %>
 <% end %>
 
 <% @events.each do |event| %>
   <ul>
-    <li> <%= link_to event.title, event %> </li>
-    <li> <%= event.location.name %> </li>
-    <li> <%= event.event_type %> </li>
+    <div class="events">
+      <%= link_to event.title, event %><br>
+      Location: <%= event.location.name %><br>
+      Category: <%= event.event_type %><br>
+    </div>
   </ul>
 <% end %>
 
@@ -62,7 +65,7 @@ body { margin:0; padding:0; }
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v9',
       center: [-74.012498, 40.703987],
-      zoom: 10
+      zoom: 11
     });
 
     all_event_locs.forEach(function(element){
@@ -88,6 +91,8 @@ body { margin:0; padding:0; }
             color = "red"
           } else if (type == "Escape Room"){
             color = "blue"
+          } else if (type == "Park"){
+            color = "pink"
           } else {
             color = "black"
           }

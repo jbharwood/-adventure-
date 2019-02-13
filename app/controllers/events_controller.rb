@@ -6,6 +6,8 @@ class EventsController < ApplicationController
       @events = Event.where(event_type: "Happy Hour")
     elsif params["type"] == "2"
       @events = Event.where(event_type: "Escape Room")
+    elsif params["type"] == "3"
+      @events = Event.where(event_type: "Park")
     else
       @events = Event.all
     end

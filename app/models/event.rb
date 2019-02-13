@@ -7,7 +7,7 @@ class Event < ApplicationRecord
   def self.uniq_event_type_list
     arr = []
     self.all.each do |event|
-      arr << event.event_type
+      arr << event.event_type.to_s
     end
     arr.uniq
   end

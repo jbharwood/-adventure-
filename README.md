@@ -24,3 +24,11 @@
 * USER ACHIEVEMENTS
   -  belongs_to :user
   - belongs_to :achievement
+
+Features to build:
+- finish new event form
+  - new location and new category
+  - create achievements
+- add users to events
+- add comment on event pages
+- share feature
