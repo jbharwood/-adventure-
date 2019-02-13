@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories
   resources :user_achievements
   resources :user_events
   resources :achievements

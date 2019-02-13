@@ -1,4 +1,10 @@
 <h1>New Event</h1>
+<% if !!flash[:errors] %>
+  <% flash[:errors].each do |message| %>
+    <strong> <%= message %></strong><br>
+  <% end %>
+<% end %>
+
 <%= form_for @event do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %><br><br>
@@ -7,9 +13,25 @@
   <%= f.text_area :description %><br><br>
 
   <%= f.label :location %>
-  <%= f.collection_select :location_id, Location.all, :id, :name %><br><br>
+  <%= f.collection_select :location_id, Location.all, :id, :name, {:prompt => "Select Location"} %><br><br>
 
-  <%= f.label :event_type %>
-  <%= f.collection_select :event_type, Event.all, :event_type, :event_type %><br><br>
+  <%= f.label "Add a New Location" %><br>
+  <%= fields_for @event.location do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+    <%= f.label :borough %>
+    <%= f.text_field :borough %>
+  <% end %>
+  <br><br>
+  <%= f.label :category %>
+  <%= f.collection_select :category_id, Category.all, :id, :name, {:prompt => "Select Category"}%><br><br>
+  <%= f.label "Add a New Category" %><br>
+  <%= fields_for @event.category do |f| %>
+    <%= f.label :type %>
+    <%= f.text_field :type %>
+  <% end %>
+  <br>
   <%= f.submit %>
 <% end %>

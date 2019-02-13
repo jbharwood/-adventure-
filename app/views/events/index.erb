@@ -13,23 +13,24 @@ body { margin:0; padding:0; }
 <!-- END OF MAP HEADER -->
 
 <h1>Events</h1>
-<%= form_tag(events_path, method: "get") do %>
-  <label>Categories:</label>
-  <select name="type" id="category_dropdown" >
-    <option value="0">Choose a Category</option>
+<%= form_tag events_path, :method => :get, :class => 'form-search' do %>
+  <div class="input-append">
+    <%= collection_select :category, :id, Category.all, :id, :name, {:prompt => "Select Category"} %>
+    <button type="submit" class="btn">Search</button>
+  </div>
+<% end %>
+    <!-- <option value="0">Choose a Category</option>
     <option value="1">Happy Hour</option>
     <option value="2">Escape Room</option>
-    <option value="3">Park</option>
-  </select>
-  <%= submit_tag("Submit") %>
-<% end %>
+    <option value="3">Park</option> -->
+
 
 <% @events.each do |event| %>
   <ul>
     <div class="events">
       <%= link_to event.title, event %><br>
       Location: <%= event.location.name %><br>
-      Category: <%= event.event_type %><br>
+      Category: <%= event.category.name %><br>
     </div>
   </ul>
 <% end %>
@@ -37,13 +38,11 @@ body { margin:0; padding:0; }
 <%= button_to "Create An Event", new_event_path, method: "get" %>
   <script>
     let all_event_locs = []
-    let all_event_types = []
   </script>
 
   <% @events.each do |event| %>
     <script>
-      all_event_locs.push({address: "<%= event.location.address %>, New York", type: "<%= event.event_type %>"})
-      // all_event_types.push("<%= event.event_type %>")
+      all_event_locs.push({address: "<%= event.location.address %>, New York", type: "<%= event.category.name %>"})
     </script>
   <% end %>
 
@@ -92,7 +91,7 @@ body { margin:0; padding:0; }
           } else if (type == "Escape Room"){
             color = "blue"
           } else if (type == "Park"){
-            color = "pink"
+            color = "green"
           } else {
             color = "black"
           }
