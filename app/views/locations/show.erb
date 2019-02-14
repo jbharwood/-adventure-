@@ -63,4 +63,6 @@ new mapboxgl.Marker({color: 'green'})
 <% end %>
 
 <br>
-<%= link_to "Back To Locations", locations_path %>
+<%= link_to "Back To Locations", locations_path %> <br>
+<%= link_to 'Events Page', events_path %> <br>
+<%= link_to 'Your Profile', user_path(current_user.id) %>

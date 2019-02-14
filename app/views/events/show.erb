@@ -8,24 +8,24 @@
 <br>
 <div class="event_show">
   <% if !!flash[:notice] %>
-  <h4><%= flash[:notice] %></h4>
+    <h4 color="green"><%= flash[:notice] %></h4>
   <% end %>
-  <h3>Event Achievements</h3>
+<h3>Event Achievements</h3>
     <% @event.category.achievements.map do |achievement| %>
       <ul>
-        <li> <%= link_to achievement.title, achievement %> --  <%= achievement.description %> -- <%= achievement.points %> Points</li>
-        <%= form_tag event_path(@event), :method => :get, :class => 'form-status' do %>
-          <div class="input-append">
-            <%= collection_select :user_achievements, :status, UserAchievement.all, :status, :status, {:prompt => "Select Status"} %>
-            <button type="submit" class="btn">Submit</button>
-          </div>
-        <% end %>
+        <li><%= link_to achievement.title, achievement %> --  <%= achievement.description %> -- <%= achievement.points %> Points</li>
       </ul>
     <% end %>
-
-
-    <%= button_to "Add Achievements To This Event", new_achievement_path, method: "get" %>
-</div>
+    <br>
+  <p>Complete Achievements:</p>
+  <%= form_for @achievement, url: '/achieved', method: "post" do |f| %>
+    <%= hidden_field :event, :id %>
+    <%= f.collection_check_boxes :id, @event.category.achievements, :id, :title, {:prompt => "Select Achievements to Complete"} %>
+    <%= f.submit "Completed"%>
+  <% end %>
+  <br>
+  <%= button_to "Add Achievements To This Event", new_achievement_path, method: "get" %>
+  <br>
 
   <h3>Users Attending</h3>
   <% @event.users.uniq.each do |user| %>
@@ -33,21 +33,16 @@
         <li><%= link_to user.username, user %></li>
       </ul>
   <% end %>
-  <p>Want to Attend?</p>
-  <select>
-    <option value="0"> -- Select An Option -- </option>
-    <option value="1">Attending</option>
-    <option value="2">Interested</option>
-    <input type="submit" value="Submit">
-  </select>
-<br><br>
-  <%# <%= form_tag event_path(@event), :method => :get, :class => 'form-status' do %>
-    <!-- <div class="input-append">
-      <%# <%= collection_select :user_events, :status, UserEvent.all, :status, :status, {:prompt => "Select Status"} %> %>
-      <button type="submit" class="btn">Submit</button>
-    </div> -->
-  <%# <% end %>
-<%= button_to 'Delete this Event', @event, method: :delete%>
-
   <br>
-  <%= link_to 'Events Page', events_path %>
+  <p>Want to Attend?</p>
+  <%= form_for @event, method: "get" do |f| %>
+    <%= f.select "user_events", options_for_select(["-- Select Status --", "Attending", "Interested"])%>
+    <%= f.submit "Submit"%>
+  <% end %>
+<br><br>
+  <% if current_user.name == "Admin" %>
+    <%= button_to 'Delete this Event', @event, method: :delete%>
+  <% end %>
+  <br>
+  <%= link_to 'Events Page', events_path %> <br>
+  <%= link_to 'Your Profile', user_path(current_user.id) %>

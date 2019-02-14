@@ -11,21 +11,31 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-      array = []
-      if params[:user_achievements] && params[:user_achievements][:status]
-        @achievement = @event.category.achievements.each do |achievement|
-          array << {id: achievement.id, title: achievement.title, description: achievement.description, points: achievement.points, event_id: @event.id, category_id: @event.category.id}
+    @achievement = Achievement.new
+    if params[:event] && params[:event][:user_events]
+      if params[:event][:user_events] == "Attending"
+        @userevent = UserEvent.create(user_id: current_user.id, event_id: @event.id, status: "Attending")
+      else
+        @userevent = UserEvent.create(user_id: current_user.id, event_id: @event.id, status: "Interested")
+      end
+    end
+  end
+
+  def achieved
+    @achievement = Achievement.find_by(id: params[:achievement][:id])
+    if params[:achievement] && params[:achievement][:id]
+      if params[:achievement][:id] != ""
+        params[:achievement][:id].each do |aid|
+          if aid != ""
+            @userachievement = UserAchievement.create(user_id: current_user.id, achievement_id: aid, status: "Complete")
+          end
         end
-        array.find do |item|
-          item[:status] == "Complete"
-            byebug
-            @user_achievements = UserAchievement.create(user_id: current_user.id, achievement_id: array[0][:id], status: params[:user_achievements][:status])
-            flash[:notice] = "Consider it Achieved"
+        if @userachievement.valid?
+          flash[:notice]
+          redirect_to event_path(params[:event][:id])
         end
       end
-      if params[:user_events] && params[:user_events][:status]
-        @userevent = UserEvent.create(user_id: current_user.id, event_id: @event.id, status: params[:user_events][:status])
-      end
+    end
   end
 
   def new
