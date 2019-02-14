@@ -21,14 +21,21 @@
 
 <h2>Events:</h2>
 <h4>Attending:</h4>
-<% @user.user_events.each do |ue| %>
-  <% if ue.status == "Attending" %>
-    <ul>
-      <%= link_to ue.event.title, ue.event %><br>
-      Location: <%= ue.event.location.name %><br>
-      Description: <%= ue.event.description %><br>
-    </ul>
+<% array = [] %>
+<% @user.events.map do |event| %>
+  <% event.user_events.map do |ue| %>
+    <% if ue.status == "Attending" %>
+        <% array << {title: event.title, location: event.location.name, description: event.description} %>
+    <% end %>
   <% end %>
+<% end %>
+<% array.uniq.each do |item| %>
+  <ul>
+    <% @event = Event.find_by(title: item[:title]) %>
+    <%=link_to item[:title], @event %><br>
+    Loction: <%= item[:location] %><br>
+    Description: <%= item[:description] %><br>
+  </ul>
 <% end %>
 
 <h4>Interested In:</h4>
