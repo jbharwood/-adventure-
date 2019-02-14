@@ -7,12 +7,23 @@
 
 <br>
 <div class="event_show">
+  <% if !!flash[:notice] %>
+  <h4><%= flash[:notice] %></h4>
+  <% end %>
   <h3>Event Achievements</h3>
-    <% @event.category.achievements.each do |achievement| %>
+    <% @event.category.achievements.map do |achievement| %>
       <ul>
-        <li> <%= link_to achievement.title, achievement %> -- <%= achievement.points %> Points </li>
+        <li> <%= link_to achievement.title, achievement %> --  <%= achievement.description %> -- <%= achievement.points %> Points</li>
+        <%= form_tag event_path(@event), :method => :get, :class => 'form-status' do %>
+          <div class="input-append">
+            <%= collection_select :user_achievements, :status, UserAchievement.all, :status, :status, {:prompt => "Select Status"} %>
+            <button type="submit" class="btn">Submit</button>
+          </div>
+        <% end %>
       </ul>
     <% end %>
+
+
     <%= button_to "Add Achievements To This Event", new_achievement_path, method: "get" %>
 </div>
 
@@ -22,11 +33,21 @@
         <li><%= link_to user.username, user %></li>
       </ul>
   <% end %>
+  <p>Want to Attend?</p>
+  <select>
+    <option value="0"> -- Select An Option -- </option>
+    <option value="1">Attending</option>
+    <option value="2">Interested</option>
+    <input type="submit" value="Submit">
+  </select>
+<br><br>
+  <%# <%= form_tag event_path(@event), :method => :get, :class => 'form-status' do %>
+    <!-- <div class="input-append">
+      <%# <%= collection_select :user_events, :status, UserEvent.all, :status, :status, {:prompt => "Select Status"} %> %>
+      <button type="submit" class="btn">Submit</button>
+    </div> -->
+  <%# <% end %>
+<%= button_to 'Delete this Event', @event, method: :delete%>
 
-  <%= form_for :user_event, :method => :patch do |f| %>
-    <%= f.label "Want To Attend?" %>
-    <%= f.collection_select :user_event_id, UserEvent.all, :id, :status %>
-    <%= f.submit "Submit" %>
-  <% end %>
   <br>
   <%= link_to 'Events Page', events_path %>

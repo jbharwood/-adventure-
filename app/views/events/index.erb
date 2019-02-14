@@ -14,10 +14,8 @@ body { margin:0; padding:0; }
 
 <h1>Events</h1>
 <%= form_tag events_path, :method => :get, :class => 'form-search' do %>
-  <div class="input-append">
-    <%= collection_select :category, :id, Category.all, :id, :name, {:prompt => "Select Category"} %>
-    <button type="submit" class="btn">Search</button>
-  </div>
+    Search By Category: <%= collection_select :category, :id, Category.all, :id, :name, {:prompt => "Select Category"} %>
+    <%= submit_tag "Search" %>
 <% end %>
     <!-- <option value="0">Choose a Category</option>
     <option value="1">Happy Hour</option>
@@ -92,7 +90,17 @@ body { margin:0; padding:0; }
             color = "blue"
           } else if (type == "Park"){
             color = "green"
-          } else {
+          } else if (type == "Cats"){
+           color = "magenta"
+         } else if (type == "Code"){
+           color = "purple"
+         } else if (type == "Restaurant"){
+           color = "yellow"
+         } else if (type == "Store"){
+           color = "orange"
+         } else if (type == "Arcade"){
+           color = "cyan"
+         } else {
             color = "black"
           }
           return new mapboxgl.Marker({color: color})

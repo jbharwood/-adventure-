@@ -1,0 +1,12 @@
+<h1>New Location</h1>
+<%= form_for @location do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br><br>
+
+  <%= f.label :address %>
+  <%= f.text_field :address %><br><br>
+
+  <%= f.label :borough %>
+  <%= f.text_field :borough %><br><br>
+  <% f.submit %>
+<% end %>

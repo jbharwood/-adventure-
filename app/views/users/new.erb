@@ -1,0 +1,20 @@
+<h1>Sign up</h1>
+
+<h4><%= flash[:notice] %></h4>
+
+<%= form_for @user do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username %><br><br>
+  <%= f.label :password %>
+  <%= f.text_field :password %>
+
+  <br>
+  <h3>Create Profile:</h3>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br><br>
+  <%= f.label :age %>
+  <%= f.text_field :age %><br><br>
+  <%= f.label :borough %>
+  <%= f.text_field :borough %><br><br>
+  <%= f.submit %>
+<% end %>

@@ -2,14 +2,16 @@
   <p>Name: <%=@user.name %> </p>
   <p>Age: <%=@user.age %> </p>
   <p>Borough: <%=@user.borough %> </p>
-  <%= link_to "Edit My Profile", edit_user_path %>
+  <% if @user.id == current_user.id || current_user.name == "Admin" %>
+    <%= link_to "Edit My Profile", edit_user_path %>
+  <% end %>
 <br><br>
 
 <h2>My Achievements:</h2>
   <ul>
-    <% @user.achievements.uniq.each do |achievement| %>
+    <% @user.achievements.uniq.map do |achievement| %>
       <li> <%= achievement.title %> at
-        <% achievement.category.events.each do |event| %>
+        <% achievement.category.events.map do |event| %>
           <%= event.location.name %>
         <% end %> -- Points: <%= achievement.points %> </li>
     <% end %>
@@ -19,29 +21,37 @@
 
 <h2>Events:</h2>
 <h4>Attending:</h4>
-<% @user.events.uniq.each do |event| %>
-  <% event.user_events.each do |ue| %>
-    <% if ue.status == "Attending" %>
-     <p><%= link_to event.title, event %></p>
-      <ul>
-        <li> Location: <%= event.location.name %>  </li>
-        <li> Description: <%= event.description %>  </li>
-      </ul>
-    <% end %>
+<% @user.user_events.each do |ue| %>
+  <% if ue.status == "Attending" %>
+    <ul>
+      <%= link_to ue.event.title, ue.event %><br>
+      Location: <%= ue.event.location.name %><br>
+      Description: <%= ue.event.description %><br>
+    </ul>
   <% end %>
 <% end %>
 
 <h4>Interested In:</h4>
-<% @user.events.uniq.each do |event| %>
-  <% event.user_events.each do |ue| %>
+<% array = [] %>
+<% @user.events.map do |event| %>
+  <% event.user_events.map do |ue| %>
     <% if ue.status == "Interested" %>
-    <p> <%=link_to event.title, event %>  </p>
-      <ul>
-        <li>Location: <%= event.location.name %>  </li>
-        <li>Description: <%= event.description %>  </li>
-      </ul>
+        <% array << {title: event.title, location: event.location.name, description: event.description} %>
     <% end %>
   <% end %>
+<% end %>
+<% array.uniq.each do |item| %>
+  <ul>
+    <% @event = Event.find_by(title: item[:title]) %>
+    <%=link_to item[:title], @event %><br>
+    Loction: <%= item[:location] %><br>
+    Description: <%= item[:description] %><br>
+  </ul>
+<% end %>
+<br>
+<% if @user.id == current_user.id %>
+  <%= button_to 'Delete this Account', user_path(@user), method: :delete, data: { confirm: 'are u sure lol' } %>
+  <%= button_to 'Log Out', logout_path, method: :delete, data: { confirm: 'wanna logout?  lol' } %>
 <% end %>
 <br>
 <%= link_to "Back To Users", users_path %>

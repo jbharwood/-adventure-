@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :achievements, through: :user_achievements
 
   validates :username, uniqueness: true
-
+  has_secure_password
 
   def my_achievements
     sum = 0
@@ -14,4 +14,5 @@ class User < ApplicationRecord
     end
     sum
   end
+
 end
