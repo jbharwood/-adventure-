@@ -1,85 +1,89 @@
 <!-- MAP HEADER -->
-<html>
-<head>
-<meta charset='utf-8' />
-<title>Add a marker using a place name</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
-<style>
-body { margin:0; padding:0; }
-#map { position:fixed; top:0; right:0; bottom:0; width:50%; }
-</style>
-</head>
-<!-- END OF MAP HEADER -->
-<h1>All Locations:</h1>
-<% @locations.each do |location| %>
-  <ul>
-    <li> <%=link_to location.name, location %></li>
-  </ul>
-<% end %>
-
-<script>
-  let all_locs = []
-</script>
-
-<% @locations.each do |location| %>
+<div class="locations">
+  <html>
+  <head>
+  <meta charset='utf-8' />
+  <title>Add a marker using a place name</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+  <style>
+  body { margin:0; padding:0; }
+  #map { position:fixed; top:0; right:0; bottom:0; width:50%; }
+  </style>
+  </head>
+  <!-- END OF MAP HEADER -->
+  <div class="header">
+    <h1>All Locations:</h1>
+  </div>
+  <% @locations.uniq.each do |location| %>
+    <ul>
+      <li> <%=link_to location.name, location , :class => "links"%></li>
+    </ul>
+  <% end %>
+<br>
   <script>
-    all_locs.push("<%= location.address %>, New York")
-    console.log(all_locs)
+    let all_locs = []
   </script>
-<% end %>
+
+  <% @locations.each do |location| %>
+    <script>
+      all_locs.push("<%= location.address %>, New York")
+      console.log(all_locs)
+    </script>
+  <% end %>
 
 
-  <!-- MAP BODY CODE -->
-  <body>
-  <div id='map'></div>
-  <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
-  <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
-  <script>
-  mapboxgl.accessToken = 'pk.eyJ1Ijoic2l2YW5hZGxlciIsImEiOiJjanMweHF1dG4xb3FzM3lvM2x1YXgxenk5In0.MyibGT8NsyJQNO-KIzUWcw';
-  // eslint-disable-next-line no-undef
+    <!-- MAP BODY CODE -->
+    <body>
+    <div id='map'></div>
+    <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2l2YW5hZGxlciIsImEiOiJjanMweHF1dG4xb3FzM3lvM2x1YXgxenk5In0.MyibGT8NsyJQNO-KIzUWcw';
+    // eslint-disable-next-line no-undef
 
-  //step one: create the map
+    //step one: create the map
 
-  //step two: for each (hint hint) of the elements in the JS array,
-  //send a query to the api and create a new marker, adding it to the extisting map
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
-    center: [-74.012498, 40.703987],
-    zoom: 10
-  });
-
-  all_locs.forEach(function(addressString){
-    iteratorCallBack(addressString, map)
-    console.log(map)
-  });
-
-
-  //iterate through all_locs array to add markers
-  //in the iteration, invoke the helper method below to create a marker for each location's address
-
-  function iteratorCallBack(addressString, map){
-    console.log(addressString, map)
-    var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-    mapboxClient.geocoding.forwardGeocode({
-      query: addressString,
-      autocomplete: false,
-      limit: 1
-    })
-    .send()
-    .then(function (response) {
-      if (response && response.body && response.body.features && response.body.features.length) {
-        var feature = response.body.features[0];
-
-        new mapboxgl.Marker({color: "red"})
-        .setLngLat(feature.center)
-        .addTo(map);
-      }
+    //step two: for each (hint hint) of the elements in the JS array,
+    //send a query to the api and create a new marker, adding it to the extisting map
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v9',
+      center: [-74.012498, 40.703987],
+      zoom: 10
     });
-  }
-  </script>
-  </body>
-  </html>
-  <!-- END OF MAP -->
+
+    all_locs.forEach(function(addressString){
+      iteratorCallBack(addressString, map)
+      console.log(map)
+    });
+
+
+    //iterate through all_locs array to add markers
+    //in the iteration, invoke the helper method below to create a marker for each location's address
+
+    function iteratorCallBack(addressString, map){
+      console.log(addressString, map)
+      var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+      mapboxClient.geocoding.forwardGeocode({
+        query: addressString,
+        autocomplete: false,
+        limit: 1
+      })
+      .send()
+      .then(function (response) {
+        if (response && response.body && response.body.features && response.body.features.length) {
+          var feature = response.body.features[0];
+
+          new mapboxgl.Marker({color: "green"})
+          .setLngLat(feature.center)
+          .addTo(map);
+        }
+      });
+    }
+    </script>
+    </body>
+    </html>
+    <!-- END OF MAP -->
+</div>

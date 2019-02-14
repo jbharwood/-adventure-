@@ -1,65 +1,88 @@
-<h1><%=@user.username %>  </h1>
-  <p>Name: <%=@user.name %> </p>
-  <p>Age: <%=@user.age %> </p>
-  <p>Borough: <%=@user.borough %> </p>
-  <% if @user.id == current_user.id || current_user.name == "Admin" %>
-    <%= link_to "Edit My Profile", edit_user_path %>
-  <% end %>
-<br><br>
+<div class="header">
+  <h1><%=@user.username %>  </h1>
+</div>
+<div id="container">
+  <div id="left">
+    <img id="avatar" src="avatar.jpg">
+    <p class="user_info">Name: <%=@user.name %> </p>
+    <p class="user_info">Age: <%=@user.age %> </p>
+    <br>
+    <div id="buttons">
+      <% if @user.id == current_user.id || current_user.name == "Admin" %>
+        <%= button_to "Edit My Profile", edit_user_path, method: 'get',  :class => 'edit_button'%>
+      <% end %><br>
+      <% if @user.id == current_user.id %>
+        <%= button_to 'Delete Account', user_path(@user), method: :delete, :class => 'edit_button', data: { confirm: 'are u sure lol' } %><br>
+        <%= button_to 'Log Out', logout_path, method: :delete, :class => 'edit_button', data: { confirm: 'wanna logout?  lol' } %>
+      <% end %>
+    </div>
+  </div>
 
-<h2>My Achievements:</h2>
-  <ul>
-    <% @user.achievements.uniq.map do |achievement| %>
-      <li> <%= achievement.title %> at
-        <% achievement.category.events.map do |event| %>
-          <%= event.location.name %>
-        <% end %> -- Points: <%= achievement.points %> </li>
-    <% end %>
-  </ul>
-<h4>Total Points: <%= @user.my_achievements %>  </h4>
-<br>
+  <br><br>
 
-<h2>Events:</h2>
-<h4>Attending:</h4>
-<% array = [] %>
-<% @user.events.map do |event| %>
-  <% event.user_events.map do |ue| %>
-    <% if ue.status == "Attending" %>
-        <% array << {title: event.title, location: event.location.name, description: event.description} %>
+  <div id="right">
+    <div class="header">
+      <h2>My Achievements:</h2>
+    </div>
+      <ul>
+        <% @user.achievements.uniq.map do |achievement| %>
+          <li class="user_info"> <%= achievement.title %> at
+            <% achievement.category.events.map do |event| %>
+              <%= event.location.name %>
+            <% end %> -- Points: <%= achievement.points %> </li>
+        <% end %>
+      </ul>
+      <div class="header">
+        <h4>Total Points: <%= @user.my_achievements %>  </h4>
+      </div>
+  </div>
+
+</div>
+
+<br>
+<div class="events_info">
+  <div class="header">
+    <h2>My Events:</h2>
+  </div>
+  <h4>Attending:</h4>
+  <% array = [] %>
+  <% @user.events.map do |event| %>
+    <% event.user_events.map do |ue| %>
+      <% if ue.status == "Attending" %>
+          <% array << {title: event.title, location: event.location.name, description: event.description} %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-<% array.uniq.each do |item| %>
-  <ul>
-    <% @event = Event.find_by(title: item[:title]) %>
-    <%=link_to item[:title], @event %><br>
-    Loction: <%= item[:location] %><br>
-    Description: <%= item[:description] %><br>
-  </ul>
-<% end %>
+  <% array.uniq.each do |item| %>
+    <ul>
+      <% @event = Event.find_by(title: item[:title]) %>
+      <div class="event_items">
+        <%=link_to item[:title], @event, :class => 'links'%><br>
+        Loction: <%= item[:location] %><br>
+        Description: <%= item[:description] %><br>
+      </div>
+    </ul>
+  <% end %>
 
-<h4>Interested In:</h4>
-<% array = [] %>
-<% @user.events.map do |event| %>
-  <% event.user_events.map do |ue| %>
-    <% if ue.status == "Interested" %>
-        <% array << {title: event.title, location: event.location.name, description: event.description} %>
+  <h4>Interested In:</h4>
+  <% array = [] %>
+  <% @user.events.map do |event| %>
+    <% event.user_events.map do |ue| %>
+      <% if ue.status == "Interested" %>
+          <% array << {title: event.title, location: event.location.name, description: event.description} %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-<% array.uniq.each do |item| %>
-  <ul>
-    <% @event = Event.find_by(title: item[:title]) %>
-    <%=link_to item[:title], @event %><br>
-    Loction: <%= item[:location] %><br>
-    Description: <%= item[:description] %><br>
-  </ul>
-<% end %>
+  <% array.uniq.each do |item| %>
+    <ul>
+      <% @event = Event.find_by(title: item[:title]) %>
+      <div class="event_items">
+        <%=link_to item[:title], @event, :class => 'links'%><br>
+        Loction: <%= item[:location] %><br>
+        Description: <%= item[:description] %><br>
+      </div>
+    </ul>
+  <% end %>
+</div>
+
 <br>
-<% if @user.id == current_user.id %>
-  <%= button_to 'Delete this Account', user_path(@user), method: :delete, data: { confirm: 'are u sure lol' } %>
-  <%= button_to 'Log Out', logout_path, method: :delete, data: { confirm: 'wanna logout?  lol' } %>
-<% end %>
-<br>
-<%= link_to "Back To Users", users_path %> <br>
-<%= link_to "Events Page", events_path %>

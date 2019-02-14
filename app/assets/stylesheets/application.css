@@ -1,15 +1,178 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+.topnav{
+    position: relative;
+    background-color: #3588C6;
+    overflow: hidden;
+    z-index: 2;
+    border-bottom: solid white;
+}
+
+.topnav a{
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 18px;
+    font-family: "Jack Frost";
+ }
+
+.topnav a:hover{
+    background-color: #4D615F;
+    color: white;
+    text-decoration: none;
+}
+
+.body {
+  background-color: #2C2B39;
+}
+
+.events {
+  background-color: #CCCCCC;
+  width: 90%;
+  padding: 10px;
+  border: solid black;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+h1, h2, h3, h4 {
+  /* padding-left: 38px; */
+  /* padding-top: 10px; */
+  font-family: "Jack Frost";
+  color: black;
+}
+.search_bar {
+  padding-left: 38px;
+}
+
+.search_button {
+  background-color: #3588C6;
+  border-radius: 5px;
+  color: white;
+}
+.edit_button {
+  background-color: #3588C6;
+  border-radius: 5px;
+  color: white;
+}
+
+#search_text {
+  color: black;
+}
+
+.user_info {
+  color: black;
+  padding-left: 10px;
+}
+.event_items {
+  color: black;
+  padding-left: 38px;
+  border: solid black;
+  border-radius: 5px;
+  background-color: #CCCCCC;
+  width: 80%;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.header {
+  background-color: white;
+  margin: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+#avatar {
+  width: 100px;
+  image-orientation: center;
+  padding: 10px;
+}
+
+#container {
+  display: table;
+  padding: 10px;
+  margin: 20px;
+}
+
+#left, #right {
+  display: table-cell;
+}
+#right {
+  background-color: white;
+  border-radius: 5px;
+  width: 65%;
+  margin-right: 20px;
+}
+#left {
+  background-color: white;
+  border-radius: 5px;
+  width: 30%;
+}
+
+.events_info {
+  background-color: white;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#buttons {
+  text-align: center;
+}
+.logo {
+  text-align: center;
+  font-size: 100px;
+  font-family: "Jack Frost";
+  color: white;
+  vertical-align: middle;
+}
+
+#login_body{
+  vertical-align: middle;
+}
+#login {
+  font-size: 100px;
+  font-family: "Jack Frost";
+  color: white;
+  vertical-align: middle;
+  text-align: center;
+}
+#container_login {
+  background-color: white;
+  margin-left: 90px;
+  margin-right: 90px;
+  border-radius: 5px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+.links {
+  color: navy;
+  font-weight: bold;
+}
+.event_show {
+  background-color: white;
+  border-radius: 5px;
+  margin: 20px;
+}
+.event_index {
+  background-color: white;
+  border-radius: 5px;
+  margin: 20px;
+  width: 45%
+}
+#create_event {
+  text-align: center;
+}
+.delete_event {
+  text-align: center;
+}
+
+.locations {
+  background-color: white;
+  border-radius: 5px;
+  margin: 20px;
+  width: 45%
+}
+.achievement_container {
+  background-color: white;
+  border-radius: 5px;
+  margin: 20px;
+}

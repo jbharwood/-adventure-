@@ -1,8 +1,10 @@
 <div class="event_show">
-  <h1> <%= @event.title %> </h1>
+  <div class="header">
+    <h1> <%= @event.title %> </h1>
+  </div>
+
     <p> <%= @event.description %> </p>
-    <p>Location: <%= link_to @event.location.name, @event.location %> </p>
-</div>
+    <p>Location: <%= link_to @event.location.name, @event.location, :class => 'links'%> </p>
 <!-- INSERT MAP HERE -->
 
 <br>
@@ -10,10 +12,10 @@
   <% if !!flash[:notice] %>
     <h4 color="green"><%= flash[:notice] %></h4>
   <% end %>
-<h3>Event Achievements</h3>
+  <h3>Event Achievements</h3>
     <% @event.category.achievements.map do |achievement| %>
       <ul>
-        <li><%= link_to achievement.title, achievement %> --  <%= achievement.description %> -- <%= achievement.points %> Points</li>
+        <li><%= link_to achievement.title, achievement, :class => "links"%> --  <%= achievement.description %> -- <%= achievement.points %> Points</li>
       </ul>
     <% end %>
     <br>
@@ -21,28 +23,30 @@
   <%= form_for @achievement, url: '/achieved', method: "post" do |f| %>
     <%= hidden_field :event, :id %>
     <%= f.collection_check_boxes :id, @event.category.achievements, :id, :title, {:prompt => "Select Achievements to Complete"} %>
-    <%= f.submit "Completed"%>
+    <%= f.submit "Completed", :class => "edit_button"%>
   <% end %>
   <br>
-  <%= button_to "Add Achievements To This Event", new_achievement_path, method: "get" %>
-  <br>
+  <%= button_to "Add Achievements To This Event", new_achievement_path, method: "get", :class => "edit_button" %>
+  <br><br>
 
   <h3>Users Attending</h3>
   <% @event.users.uniq.each do |user| %>
       <ul>
-        <li><%= link_to user.username, user %></li>
+        <li><%= link_to user.username, user, :class => "links" %></li>
       </ul>
   <% end %>
   <br>
   <p>Want to Attend?</p>
   <%= form_for @event, method: "get" do |f| %>
     <%= f.select "user_events", options_for_select(["-- Select Status --", "Attending", "Interested"])%>
-    <%= f.submit "Submit"%>
+    <%= f.submit "Submit", :class => "edit_button"%>
   <% end %>
 <br><br>
   <% if current_user.name == "Admin" %>
-    <%= button_to 'Delete this Event', @event, method: :delete%>
+  <div class="delete_event">
+    <%= button_to 'Delete this Event', @event, :class => "edit_button", method: :delete%>
+    <br>
+  </div>
+
   <% end %>
-  <br>
-  <%= link_to 'Events Page', events_path %> <br>
-  <%= link_to 'Your Profile', user_path(current_user.id) %>
+</div>

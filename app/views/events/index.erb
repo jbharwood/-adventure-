@@ -1,117 +1,126 @@
-<html>
-<head>
-<meta charset='utf-8' />
-<title>Add a marker using a place name</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
-<style>
-body { margin:0; padding:0; }
-#map { position:fixed; top:0; right:0; bottom:0; width:50%; }
-</style>
-</head>
-<!-- END OF MAP HEADER -->
+<div class="event_index">
+  <html>
+  <head>
+  <meta charset='utf-8' />
+  <title>Add a marker using a place name</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+  <style>
+  body { margin:0; padding:0; }
+  #map { position:fixed; top:0; right:0; bottom:0; width:50%; }
+  </style>
+  </head>
+  <!-- END OF MAP HEADER -->
+  <div class="header">
+    <h1>Events</h1>
+  </div>
 
-<h1>Events</h1>
-<%= form_tag events_path, :method => :get, :class => 'form-search' do %>
-    Search By Category: <%= collection_select :category, :id, Category.all, :id, :name, {:prompt => "Select Category"} %>
-    <%= submit_tag "Search" %>
-<% end %>
-    <!-- <option value="0">Choose a Category</option>
-    <option value="1">Happy Hour</option>
-    <option value="2">Escape Room</option>
-    <option value="3">Park</option> -->
+  <div class="search_bar">
+    <%= form_tag events_path, :method => :get, :class => 'form-search' do %>
+        <span id="search_text">Search: </span><%= collection_select :category, :id, Category.all, :id, :name, {:prompt => "Select Category"} %>
+        <%= submit_tag "Search", :class => 'search_button'%>
+    <% end %>
+  </div>
+  <br>
+      <!-- <option value="0">Choose a Category</option>
+      <option value="1">Happy Hour</option>
+      <option value="2">Escape Room</option>
+      <option value="3">Park</option> -->
 
-
-<% @events.each do |event| %>
-  <ul>
-    <div class="events">
-      <%= link_to event.title, event %><br>
-      Location: <%= event.location.name %><br>
-      Category: <%= event.category.name %><br>
-    </div>
-  </ul>
-<% end %>
-
-<%= button_to "Create An Event", new_event_path, method: "get" %>
-  <script>
-    let all_event_locs = []
-  </script>
 
   <% @events.each do |event| %>
-    <script>
-      all_event_locs.push({address: "<%= event.location.address %>, New York", type: "<%= event.category.name %>"})
-    </script>
+    <ul>
+      <div class="events">
+        <%= link_to event.title, event , :class => "links"%><br>
+        Location: <%= event.location.name %><br>
+        Category: <%= event.category.name %><br>
+      </div>
+    </ul>
   <% end %>
 
+<div id="create_event">
+  <%= button_to "Create An Event", new_event_path, method: "get", :class => "edit_button" %>
+  <br>
+</div>
 
-    <!-- MAP BODY CODE -->
-    <body>
-    <div id='map'></div>
-    <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
-    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic2l2YW5hZGxlciIsImEiOiJjanMweHF1dG4xb3FzM3lvM2x1YXgxenk5In0.MyibGT8NsyJQNO-KIzUWcw';
-    // eslint-disable-next-line no-undef
-
-    //step one: create the map
-
-    //step two: for each (hint hint) of the elements in the JS array,
-    //send a query to the api and create a new marker, adding it to the extisting map
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9',
-      center: [-74.012498, 40.703987],
-      zoom: 11
-    });
-
-    all_event_locs.forEach(function(element){
-      iteratorCallBack(element.address, element.type, map)
-    });
-
-    //iterate through all_locs array to add markers
-    //in the iteration, invoke the helper method below to create a marker for each location's address
-
-    function iteratorCallBack(addressString, type, map){
-      var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-      mapboxClient.geocoding.forwardGeocode({
-        query: addressString,
-        autocomplete: false,
-        limit: 1
-      })
-      .send()
-      .then(function (response) {
-        if (response && response.body && response.body.features && response.body.features.length) {
-          var feature = response.body.features[0];
-          var color
-          if (type == "Happy Hour"){
-            color = "red"
-          } else if (type == "Escape Room"){
-            color = "blue"
-          } else if (type == "Park"){
-            color = "green"
-          } else if (type == "Cats"){
-           color = "magenta"
-         } else if (type == "Code"){
-           color = "purple"
-         } else if (type == "Restaurant"){
-           color = "yellow"
-         } else if (type == "Store"){
-           color = "orange"
-         } else if (type == "Arcade"){
-           color = "cyan"
-         } else {
-            color = "black"
-          }
-          return new mapboxgl.Marker({color: color})
-            .setLngLat(feature.center)
-            .addTo(map);
-        }
-      });
-    }
+      let all_event_locs = []
     </script>
-    </body>
-    </html>
-    <!-- END OF MAP -->
-    <br>
-    <%= link_to 'Your Profile', user_path(current_user.id) %>
+
+    <% @events.each do |event| %>
+      <script>
+        all_event_locs.push({address: "<%= event.location.address %>, New York", type: "<%= event.category.name %>"})
+      </script>
+    <% end %>
+
+
+      <!-- MAP BODY CODE -->
+      <body>
+      <div id='map'></div>
+      <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
+      <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+      <script>
+      mapboxgl.accessToken = 'pk.eyJ1Ijoic2l2YW5hZGxlciIsImEiOiJjanMweHF1dG4xb3FzM3lvM2x1YXgxenk5In0.MyibGT8NsyJQNO-KIzUWcw';
+      // eslint-disable-next-line no-undef
+
+      //step one: create the map
+
+      //step two: for each (hint hint) of the elements in the JS array,
+      //send a query to the api and create a new marker, adding it to the extisting map
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        center: [-74.012498, 40.703987],
+        zoom: 11
+      });
+
+      all_event_locs.forEach(function(element){
+        iteratorCallBack(element.address, element.type, map)
+      });
+
+      //iterate through all_locs array to add markers
+      //in the iteration, invoke the helper method below to create a marker for each location's address
+
+      function iteratorCallBack(addressString, type, map){
+        var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+        mapboxClient.geocoding.forwardGeocode({
+          query: addressString,
+          autocomplete: false,
+          limit: 1
+        })
+        .send()
+        .then(function (response) {
+          if (response && response.body && response.body.features && response.body.features.length) {
+            var feature = response.body.features[0];
+            var color
+            if (type == "Happy Hour"){
+              color = "red"
+            } else if (type == "Escape Room"){
+              color = "blue"
+            } else if (type == "Park"){
+              color = "green"
+            } else if (type == "Cats"){
+             color = "magenta"
+           } else if (type == "Code"){
+             color = "purple"
+           } else if (type == "Restaurant"){
+             color = "yellow"
+           } else if (type == "Store"){
+             color = "orange"
+           } else if (type == "Arcade"){
+             color = "cyan"
+           } else {
+              color = "black"
+            }
+            return new mapboxgl.Marker({color: color})
+              .setLngLat(feature.center)
+              .addTo(map);
+          }
+        });
+      }
+      </script>
+      </body>
+      </html>
+      <!-- END OF MAP -->
+</div>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :new, :create, :edit, :update, :destroy]
 
   patch '/attending', to: "events#update"
+  get '/home', to: 'application#home', as: 'home'
   get '/login', to: 'sessions#new', as: 'login'
   post '/login', to: 'sessions#create'
   get '/test', to: 'events#test'
