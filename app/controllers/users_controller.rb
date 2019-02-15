@@ -26,11 +26,11 @@ class UsersController < ApplicationController
     redirect_to @user
   end
 
-  def destroy # DELETE request /users/:id
+  def destroy
     @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = 'You deleted ur account. YEET!'
-    redirect_to new_user_path
+    redirect_to login_path
   end
 
 

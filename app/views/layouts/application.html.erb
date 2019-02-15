@@ -17,12 +17,13 @@
     <% if !!session[:user_id]%>
     <div class="topnav">
       <a href="<%= home_path %>" class="navlink">Home</a>
-        <a href="<%= user_path(current_user.id) %>" class="navlink">My Profile</a>
+        <% if !! current_user %>
+          <a href="<%= user_path(current_user.id) %>" class="navlink">My Profile</a>
+        <% end %>
       <a href="<%= events_path %>" class="navlink">Events</a>
       <a href="<%= locations_path %>" class="navlink">Locations</a>
       <a href="<%= achievements_path %>" class="navlink">Achievements</a>
       <h1 id="icon">//A</h1>
-      <!-- <img  src="../images/adventure.jpg"> -->
     <% end %>
     </div>
     <%= yield %>
