@@ -211,9 +211,17 @@ h1, h2, h3, h4 {
 
 #container2 {
   display: table;
-  margin: 20px;
+  margin: 40px;
   background-color: white;
   border-radius: 5px;
+}
+
+.achievement_index {
+  margin: 40px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
 }
 
 .gif, .achievement_container{
@@ -256,8 +264,8 @@ h1, h2, h3, h4 {
 .gif {
   width: 40%;
   height: 100%;
-  padding-left: 60px;
   vertical-align: middle;
+  text-align: center;
   background-color: white;
   border-radius: 5px;
 }
