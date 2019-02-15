@@ -1,68 +1,67 @@
 <!-- MAP HEADER -->
-<html>
-<head>
-<meta charset='utf-8' />
-<title>Add a marker using a place name</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
-<style>
-body { margin:0; padding:0; }
-#map { position:fixed; top:0; right:0; bottom:0; width:50%; }
-</style>
-</head>
-<!-- END OF MAP HEADER -->
+<div class="location_container">
+  <html>
+  <head>
+  <meta charset='utf-8' />
+  <title>Add a marker using a place name</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+  <style>
+  body { margin:0; padding:0; }
+  #map { position:fixed; top:0; right:0; bottom:0; width:50%; }
+  </style>
+  </head>
+  <!-- END OF MAP HEADER -->
 
-<h1><%= @location.name %> </h1>
-<ul>
-  <li>Address: <%= @location.address %></li>
-  <li>Borough: <%= @location.borough %></li>
-</ul>
-
-<!-- MAP BODY CODE -->
-<body>
-<div id='map'></div>
-<script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
-<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
-<script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2l2YW5hZGxlciIsImEiOiJjanMweHF1dG4xb3FzM3lvM2x1YXgxenk5In0.MyibGT8NsyJQNO-KIzUWcw';
-// eslint-disable-next-line no-undef
-var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-mapboxClient.geocoding.forwardGeocode({
-query: "<%= @location.address %>, New York",
-autocomplete: false,
-limit: 1
-})
-.send()
-.then(function (response) {
-if (response && response.body && response.body.features && response.body.features.length) {
-var feature = response.body.features[0];
-
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v9',
-center: feature.center,
-zoom: 10
-});
-new mapboxgl.Marker({color: 'green'})
-.setLngLat(feature.center)
-.addTo(map);
-}
-});
-</script>
-
-</body>
-</html>
-<!-- END OF MAP -->
-
-<h3>Events Happening Here:</h3>
-<% @location.events.each do |event| %>
+  <h1 class="header"><%= @location.name %> </h1>
   <ul>
-    <li> <%=link_to event.title, event %>  </li>
+    <li><strong>Address:</strong> <%= @location.address %></li>
+    <li><strong>Borough: </strong><%= @location.borough %></li>
   </ul>
-<% end %>
 
-<br>
-<%= link_to "Back To Locations", locations_path %> <br>
-<%= link_to 'Events Page', events_path %> <br>
-<%= link_to 'Your Profile', user_path(current_user.id) %>
+  <!-- MAP BODY CODE -->
+  <body>
+  <div id='map'></div>
+  <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
+  <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+  <script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoic2l2YW5hZGxlciIsImEiOiJjanMweHF1dG4xb3FzM3lvM2x1YXgxenk5In0.MyibGT8NsyJQNO-KIzUWcw';
+  // eslint-disable-next-line no-undef
+  var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+  mapboxClient.geocoding.forwardGeocode({
+  query: "<%= @location.address %>, New York",
+  autocomplete: false,
+  limit: 1
+  })
+  .send()
+  .then(function (response) {
+  if (response && response.body && response.body.features && response.body.features.length) {
+  var feature = response.body.features[0];
+
+  var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v9',
+  center: feature.center,
+  zoom: 10
+  });
+  new mapboxgl.Marker({color: 'green'})
+  .setLngLat(feature.center)
+  .addTo(map);
+  }
+  });
+  </script>
+
+  </body>
+  </html>
+  <!-- END OF MAP -->
+
+  <h3 style="padding:10px;">Events Happening Here:</h3>
+  <% @location.events.each do |event| %>
+    <ul>
+      <li> <%=link_to event.title, event, :class => "links"%>  </li>
+    </ul>
+  <% end %>
+
+  <br>
+</div>

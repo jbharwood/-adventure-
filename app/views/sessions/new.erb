@@ -1,9 +1,11 @@
 <body id "loginbody">
 <p id = "login">//ADVENTURE</p>
 <div id="container_login">
+  <br>
   <h3>Create Account: </h3>
   <%= button_to 'Create Account', new_user_path, :class => 'edit_button', method: :get %>
-<h4><%= flash[:notice] %></h4>
+  <br>
+<h4 id="flash"><%= flash[:notice] %></h4>
   <h3>Log In: </h3>
   <%= form_tag(login_path) do %>
     <%= label_tag :username %>
@@ -15,5 +17,5 @@
     <%= submit_tag 'Login' %>
   <% end %>
 </div>
-
+<br><br><br>
 </body>

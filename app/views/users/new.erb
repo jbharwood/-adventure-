@@ -1,18 +1,26 @@
-<h1>Sign up</h1>
+  <div class="sign_up">
+  <div class="sign_up_container">
+    <div class="container3">
 
-<h4><%= flash[:notice] %></h4>
+    <h1 style="padding:10px;border:solid black;"  class="header"">Sign up</h1>
+    <h3>Create Profile:</h3>
+    <h4 class="flash_notice"><%= flash[:notice] %></h4>
+    <%= form_for @user do |f| %>
+      <%= f.label :username %>
+      <%= f.text_field :username %><br><br>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+      <br>
+      <br>
+      <%= f.label :name %>
+      <%= f.text_field :name %><br><br>
+      <%= f.label :age %>
+      <%= f.text_field :age %><br><br>
+      <%= f.submit "Sign Up", :class => 'edit_button'%>
+    <% end %>
 
-<%= form_for @user do |f| %>
-  <%= f.label :username %>
-  <%= f.text_field :username %><br><br>
-  <%= f.label :password %>
-  <%= f.text_field :password %>
+    </div>
+  </div>
 
-  <br>
-  <h3>Create Profile:</h3>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br><br>
-  <%= f.label :age %>
-  <%= f.text_field :age %><br><br>
-  <%= f.submit %>
-<% end %>
+
+</div>

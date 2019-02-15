@@ -31,7 +31,7 @@ class EventsController < ApplicationController
           end
         end
         if @userachievement.valid?
-          flash[:notice]
+          flash[:notice] = 'ACHIEVEMENT UNLOCKED!'
           redirect_to event_path(params[:event][:id])
         end
       end
@@ -44,20 +44,17 @@ class EventsController < ApplicationController
   end
 
   def create
-    byebug
     @event = Event.new(event_params)
     if params[:event] && params[:event][:location_id] != ""
       @event.location = Location.find_by(id: params[:event][:location_id])
     else
       @event.location = Location.create(name: params[:name], address: params[:address], borough: params[:borough])
     end
-      byebug
     if params[:event] && params[:event][:category_id] != ""
       @event.category = Category.find_by(id: params[:event][:category_id])
     else
       @event.category = Category.create(name: params[:type])
     end
-      byebug
     if @event.valid?
       @event.save
       redirect_to @event

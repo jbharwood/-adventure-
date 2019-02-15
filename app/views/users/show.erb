@@ -1,11 +1,12 @@
 <div class="header">
-  <h1><%=@user.username %>  </h1>
+  <h1>//<%=@user.username %>  </h1>
 </div>
 <div id="container">
   <div id="left">
-    <img id="avatar" src="avatar.jpg">
-    <p class="user_info">Name: <%=@user.name %> </p>
-    <p class="user_info">Age: <%=@user.age %> </p>
+    <img id="avatar" src="https://image.flaticon.com/icons/png/512/65/65581.png">
+
+    <p class="user_info"><strong>Name: </strong><%=@user.name %> </p>
+    <p class="user_info"><strong>Age: </strong><%=@user.age %> </p>
     <br>
     <div id="buttons">
       <% if @user.id == current_user.id || current_user.name == "Admin" %>
@@ -15,25 +16,23 @@
         <%= button_to 'Delete Account', user_path(@user), method: :delete, :class => 'edit_button', data: { confirm: 'are u sure lol' } %><br>
         <%= button_to 'Log Out', logout_path, method: :delete, :class => 'edit_button', data: { confirm: 'wanna logout?  lol' } %>
       <% end %>
+      <br>
     </div>
   </div>
 
-  <br><br>
-
+  <br>
   <div id="right">
-    <div class="header">
-      <h2>My Achievements:</h2>
-    </div>
+      <h2 class="header">My Achievements:</h2>
       <ul>
         <% @user.achievements.uniq.map do |achievement| %>
-          <li class="user_info"> <%= achievement.title %> at
+          <li class="achievement_info"> <strong><%= achievement.title %> </strong> at
             <% achievement.category.events.map do |event| %>
               <%= event.location.name %>
             <% end %> -- Points: <%= achievement.points %> </li>
         <% end %>
       </ul>
       <div class="header">
-        <h4>Total Points: <%= @user.my_achievements %>  </h4>
+        <h4 style="color:green">Total Points: <%= @user.my_achievements %>  </h4>
       </div>
   </div>
 
@@ -58,8 +57,8 @@
       <% @event = Event.find_by(title: item[:title]) %>
       <div class="event_items">
         <%=link_to item[:title], @event, :class => 'links'%><br>
-        Loction: <%= item[:location] %><br>
-        Description: <%= item[:description] %><br>
+        <strong>Loction: </strong><%= item[:location] %><br>
+        <strong>Description: </strong><%= item[:description] %><br>
       </div>
     </ul>
   <% end %>
@@ -78,8 +77,8 @@
       <% @event = Event.find_by(title: item[:title]) %>
       <div class="event_items">
         <%=link_to item[:title], @event, :class => 'links'%><br>
-        Loction: <%= item[:location] %><br>
-        Description: <%= item[:description] %><br>
+        <strong>Loction: </strong><%= item[:location] %><br>
+        <strong>Description: </strong><%= item[:description] %><br>
       </div>
     </ul>
   <% end %>

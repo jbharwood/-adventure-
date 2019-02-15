@@ -1,46 +1,48 @@
-<div class="header">
-  <h1>Create A New Event</h1>
-</div>
-
-<div class="flash_error">
-  <% if !!flash[:errors] %>
-    <% flash[:errors].each do |message| %>
-      <strong> <%= message %></strong><br>
-    <% end %>
-  <% end %>
-</div>
-
 <div class="new_event">
-  <%= form_for @event do |f| %>
-    <%= f.label :title %>
-    <%= f.text_field :title %><br><br>
+  <div class="header">
+    <h1>Create A New Event</h1>
+  </div>
 
-    <%= f.label :description %>
-    <%= f.text_area :description %><br><br>
-
-  <div class="new_event">
-    <h3>Location For This Event:</h3>
-    <%= f.collection_select :location_id, Location.all, :id, :name, {:prompt => "Select Location"} %><br><br>
-    <%= f.label "Add a New Location:" %><br>
-    <%= fields_for @event.location do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %><br>
-      <%= f.label :address %>
-      <%= f.text_field :address %><br>
+  <div class="flash_error">
+    <% if !!flash[:errors] %>
+      <% flash[:errors].each do |message| %>
+        <strong style="color:red;font-family:'Jack Frost'"> <%= message %></strong>
+      <% end %>
     <% end %>
   </div>
-    <br>
-  <div class="new_event">
-    <h3>Category of This Event:</h3>
-    <%= f.collection_select :category_id, Category.all, :id, :name, {:prompt => "Select Category"}%><br><br>
-    <%= f.label "Add a New Category" %><br>
-    <%= fields_for @event.category do |f| %>
-      <%= f.label :type %>
-      <%= f.text_field :type %>
-    <% end %>
-    <br><br>
-    <%= f.submit %>
-  </div>
-    <% end %>
 
+  <div style="text-align:center" class="new_event">
+    <%= form_for @event do |f| %>
+      <strong><%= f.label :title %></strong>
+      <%= f.text_field :title %><br><br>
+
+      <strong><%= f.label :description %></strong>
+      <%= f.text_field :description %><br>
+
+    <div class="new_event">
+      <h3>Location For This Event:</h3>
+      <%= f.collection_select :location_id, Location.all, :id, :name, {:prompt => "Select Location"} %><br><br>
+      <strong style="font-family:'Jack Frost'"><%= f.label "Add a New Location:" %></strong><br>
+      <%= fields_for @event.location do |f| %>
+        <strong><%= f.label :name %></strong>
+        <%= f.text_field :name %><br>
+        <strong><%= f.label :address %></strong>
+        <%= f.text_field :address %><br>
+      <% end %>
+    </div>
+    <div class="new_event">
+      <h3>Category of This Event:</h3>
+      <%= f.collection_select :category_id, Category.all, :id, :name, {:prompt => "Select Category"}%><br><br>
+      <strong style="font-family:'Jack Frost'"><%= f.label "Add a New Category" %></strong><br>
+      <%= fields_for @event.category do |f| %>
+        <strong><%= f.label :type %></strong>
+        <%= f.text_field :type %>
+      <% end %>
+      <br><br>
+      <%= f.submit "Submit", :class => 'edit_button'%>
+      <br><br>
+    </div>
+      <% end %>
+
+  </div>
 </div>

@@ -5,6 +5,13 @@
     z-index: 2;
     border-bottom: solid white;
 }
+#icon{
+    float: right;
+    color: white;
+    padding-right: 6px;
+    margin: 4px;
+    font-family: "Jack Frost";
+}
 
 .topnav a{
     float: left;
@@ -17,13 +24,13 @@
  }
 
 .topnav a:hover{
-    background-color: #4D615F;
+    background-color: navy;
     color: white;
     text-decoration: none;
 }
 
 .body {
-  background-color: #2C2B39;
+  background-image: url("http://pavbca.com/walldb/original/b/d/1/744959.jpg");
 }
 
 .events {
@@ -36,8 +43,6 @@
 
 }
 h1, h2, h3, h4 {
-  /* padding-left: 38px; */
-  /* padding-top: 10px; */
   font-family: "Jack Frost";
   color: black;
 }
@@ -63,6 +68,10 @@ h1, h2, h3, h4 {
 .user_info {
   color: black;
   padding-left: 10px;
+  text-align: center;
+}
+.achievement_info {
+  color: black;
 }
 .event_items {
   color: black;
@@ -78,17 +87,19 @@ h1, h2, h3, h4 {
   background-color: white;
   margin: 20px;
   border-radius: 5px;
+  padding-top: 10px;
   text-align: center;
 }
 #avatar {
-  width: 100px;
+  width: 200px;
+  text-align: center;
   image-orientation: center;
-  padding: 10px;
+  padding: 20px;
+  margin-left: 33px;
 }
 
 #container {
   display: table;
-  padding: 10px;
   margin: 20px;
 }
 
@@ -98,7 +109,8 @@ h1, h2, h3, h4 {
 #right {
   background-color: white;
   border-radius: 5px;
-  width: 65%;
+  width: 68%;
+  padding-right: 15px;
   margin-right: 20px;
 }
 #left {
@@ -122,7 +134,24 @@ h1, h2, h3, h4 {
   font-size: 100px;
   font-family: "Jack Frost";
   color: white;
-  vertical-align: middle;
+  background-color: #2C2B39;
+  border-radius: 5px;
+  margin: 60px;
+  padding: 30px;
+  vertical-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: solid white;
+}
+
+.flash_notice {
+  padding: 10px;
+  color: white;
+  font-family: "Jack Frost";
+  font-size: 50px;
+}
+
+#flash {
+  color: green;
 }
 
 #login_body{
@@ -136,7 +165,7 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 #container_login {
-  background-color: white;
+  background-color:rgb(255,255,255,0.8);
   margin-left: 90px;
   margin-right: 90px;
   border-radius: 5px;
@@ -147,10 +176,18 @@ h1, h2, h3, h4 {
   color: navy;
   font-weight: bold;
 }
+
+.links:hover{
+    background-color: navy;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 8px;
+}
 .event_show {
   background-color: white;
   border-radius: 5px;
-  margin: 20px;
+  margin: 50px;
 }
 .event_index {
   background-color: white;
@@ -171,8 +208,118 @@ h1, h2, h3, h4 {
   margin: 20px;
   width: 45%
 }
+
+#container2 {
+  display: table;
+  margin: 20px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.gif, .achievement_container{
+  display: table-cell;
+}
+
 .achievement_container {
   background-color: white;
   border-radius: 5px;
   margin: 20px;
+  width: 30%;
+}
+
+.achievements_container {
+  background-color: white;
+  border-radius: 5px;
+  margin: 50px;
+}
+
+
+.new_achievement {
+  background-color: white;
+  border-radius: 5px;
+  margin: 50px;
+}
+
+.new_event {
+  background-color: white;
+  border-radius: 5px;
+  margin: 50px;
+}
+
+.location_container {
+  background-color: white;
+  border-radius: 5px;
+  margin: 20px;
+  width: 45%
+}
+
+.gif {
+  width: 40%;
+  height: 100%;
+  padding-left: 60px;
+  vertical-align: middle;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.sign_up_container {
+  background-color:rgb(255,255,255,0.8);
+  border-radius: 5px;
+  margin: 100px;
+  padding: 10px;
+  text-align: center;
+  border: #2C2B39;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.edit_user_container{
+  background-color: white;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.p_container {
+  padding-left: 20px;
+}
+
+.check_boxes {
+  margin: 0 0px 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color:rgb(255,255,255,0.8);
+}
+.key {
+  width: 40%;
+  text-align: center;
+  border: black;
+  color: white;
+  display: table;
+  border: solid black 1px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  margin: auto;
+  font-family: "Jack Frost";
+  vertical-align: middle;
+  padding: 10px;
+}
+
+.col1, .col2, .col3 {
+  display: table-cell;
+  font-size: 10px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+}
+.col1 {
+
+}
+.col2 {
+}
+.col3 {
 }

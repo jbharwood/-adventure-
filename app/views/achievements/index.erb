@@ -1,11 +1,16 @@
-<div class="achievement_container">
-  <div class="header">
-    <h1>Achievements</h1>
+<div id="container2">
+  <div class="achievement_container">
+    <div class="header">
+      <h1>Achievements</h1>
+    </div>
+    <% @achievements.each do |achievement| %>
+      <ul>
+        <li><%=link_to achievement.title, achievement , :class => "links"%></li>
+      </ul>
+    <% end %>
+  <br>
   </div>
-  <% @achievements.each do |achievement| %>
-    <ul>
-      <li><%=link_to achievement.title, achievement , :class => "links"%></li>
-    </ul>
-  <% end %>
-
+  <div class="gif">
+    <img src="https://media.giphy.com/media/xT0BKFJ0RwWc3zlh2o/giphy.gif" >
+  </div>
 </div>

@@ -1,4 +1,13 @@
 # README
+
+# //ADVENTURE: DESCRIPTION
+- //ADVENTURE is a web application that allows you, as a user, to unlock achievements by attending a variety of different events. Each event has a number of achievements based on the category of that event. You can keep track of all of the achievements you have unlocked on your profile and see how many points you have earned.
+
+# INSTALL INSTRUCTIONS
+- 
+
+# CONTRIBUTORS GUIDE
+
 * USER
   - has_many :user_events
   - has_many :events, through: :user_events

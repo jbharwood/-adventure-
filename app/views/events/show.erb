@@ -2,30 +2,32 @@
   <div class="header">
     <h1> <%= @event.title %> </h1>
   </div>
-
-    <p> <%= @event.description %> </p>
-    <p>Location: <%= link_to @event.location.name, @event.location, :class => 'links'%> </p>
-<!-- INSERT MAP HERE -->
-
-<br>
+  <div class="p_container">
+    <p><strong>Description:</strong> <%= @event.description %> </p>
+    <p><strong>Location: </strong><%= link_to @event.location.name, @event.location, :class => 'links'%> </p>
+  </div>
 <div class="event_show">
-  <% if !!flash[:notice] %>
-    <h4 color="green"><%= flash[:notice] %></h4>
-  <% end %>
   <h3>Event Achievements</h3>
     <% @event.category.achievements.map do |achievement| %>
       <ul>
         <li><%= link_to achievement.title, achievement, :class => "links"%> --  <%= achievement.description %> -- <%= achievement.points %> Points</li>
       </ul>
     <% end %>
-    <br>
-  <p>Complete Achievements:</p>
-  <%= form_for @achievement, url: '/achieved', method: "post" do |f| %>
+  <strong>Select the Achievements You Completed:</strong>
+    <% if !!flash[:notice] %>
+      <h4 style="color:green; font-family:'Jack Frost';"><%= flash[:notice] %></h4>
+    <% end %>
+  <%= form_for @achievement, url: '/achieved', method: "post", :class => "collection_check_boxes" do |f| %>
     <%= hidden_field :event, :id %>
-    <%= f.collection_check_boxes :id, @event.category.achievements, :id, :title, {:prompt => "Select Achievements to Complete"} %>
+    <div class="check_boxes">
+      <%= f.collection_check_boxes :id, @event.category.achievements, :id, :title, {:prompt => "Select Achievements to Complete"} do |b| %>
+        <%= b.label class:"check_boxes" do %>
+         <%=b.check_box + b.text%>
+         <% end %>
+      <%end%>
+    </div>
     <%= f.submit "Completed", :class => "edit_button"%>
   <% end %>
-  <br>
   <%= button_to "Add Achievements To This Event", new_achievement_path, method: "get", :class => "edit_button" %>
   <br><br>
 
@@ -36,7 +38,7 @@
       </ul>
   <% end %>
   <br>
-  <p>Want to Attend?</p>
+  <strong><p>Want to Attend?</p></strong>
   <%= form_for @event, method: "get" do |f| %>
     <%= f.select "user_events", options_for_select(["-- Select Status --", "Attending", "Interested"])%>
     <%= f.submit "Submit", :class => "edit_button"%>

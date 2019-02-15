@@ -1,17 +1,24 @@
-<h1>Add Achievements:</h1>
 <div class="new_achievement">
-  <%= form_for @achievement do |f| %>
-    <%= f.label "Select Achievements:" %><br>
-    <%= collection_check_boxes(:achievement, :title, Achievement.all, :id, :title)%>
-    <br><br>
-    <%= f.label "Create a New Achievement Here:" %><br>
-    <%= f.label :title %>
-    <%= f.text_field :title %><br>
-    <%= f.label :description %>
-    <%= f.text_area :description %><br>
-    <%= f.label :points %>
-    <%= f.number_field :points %><br>
-    <%= f.collection_select :category_id, Category.all, :id, :name, {:prompt => "Select Category"}%><br><br>
-    <%= f.submit %>
-  <% end %>
+  <h1 class="header">Add Achievements:</h1>
+    <%= form_for @achievement do |f| %>
+      <strong style="font-family:'Jack Frost';><%= f.label "Select Achievements:" %></strong><br>
+        <%= collection_check_boxes(:achievement, :title, Achievement.all, :id, :title) do |b| %>
+          <%= b.label class:"check_boxes" do %>
+           <%=b.check_box + b.text%>
+           <% end %>
+        <%end%>
+      <br><br>
+      <div style="text-align:center;">
+        <strong style="font-family:'Jack Frost';"><%= f.label "Create a New Achievement Here:" %></strong><br>
+        <strong><%= f.label :title %></strong>
+        <%= f.text_field :title %><br>
+        <strong><%= f.label :description %></strong>
+        <%= f.text_field :description %><br>
+        <strong><%= f.label :points %></strong>
+        <%= f.number_field :points %><br><br>
+        <%= f.collection_select :category_id, Category.all, :id, :name, {:prompt => "Select Category"}%><br><br>
+        <%= f.submit "Add Achievement", :class => "edit_button"%>
+        <% end %>
+    </div>
+    <br>
 </div>

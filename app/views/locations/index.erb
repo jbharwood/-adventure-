@@ -15,6 +15,24 @@
   <!-- END OF MAP HEADER -->
   <div class="header">
     <h1>All Locations:</h1>
+    <div style="border-radius:5px;"class="key">
+      <div class="col1">
+        <div class="col sm 4" style="background-color:red; width: 100%; height: 35px; vertical-align:center; border: solid white;text-shadow: 0 0 4px black;">Happy Hour</div>
+        <div class="col sm 4" style="background-color:magenta; width: 100%; height: 35px; vertical-align:center;border: solid white;text-shadow: 0 0 4px black;">Cats</div>
+        <div class="col sm 4" style="background-color:green; width: 100%; height: 35px; vertical-align:center;border: solid white;text-shadow: 0 0 4px black;">Park</div>
+      </div>
+      <div class="col2">
+        <div class="col sm 4" style="background-color:blue; width: 100%; height: 35px; vertical-align:center;border: solid white;text-shadow: 0 0 4px black;">Escape Room</div>
+        <div class="col sm 4" style="background-color:purple; width: 100%; height: 35px; vertical-align:center;border: solid white;text-shadow: 0 0 4px black;">Code</div>
+        <div class="col sm 4" style="background-color:yellow; width: 100%; height: 35px; vertical-align:center;border: solid white;text-shadow: 0 0 4px black;">Restaurant</div>
+      </div>
+      <div class="col3">
+        <div class="col sm 4" style="background-color:orange; width: 100%; height: 35px; vertical-align:center;border: solid white;text-shadow: 0 0 4px black;">Store</div>
+        <div class="col sm 4" style="background-color:cyan; width: 100%; height: 35px; vertical-align:center;border: solid white;text-shadow: 0 0 4px black;">Arcade </div>
+        <div class="col sm 4" style="background-color:black; width: 100%; height: 35px; vertical-align:center;border: solid white;text-shadow: 0 0 4px black;">Other</div>
+      </div>
+
+    </div>
   </div>
   <% @locations.uniq.each do |location| %>
     <ul>
@@ -22,68 +40,86 @@
     </ul>
   <% end %>
 <br>
+<script>
+  let all_event_locs = []
+</script>
+
+<% @locations.each do |location| %>
+    <% location.events.each do |event| %>
   <script>
-    let all_locs = []
+    all_event_locs.push({address: "<%= location.address %>, New York", type: "<%= event.category.name %>"})
   </script>
-
-  <% @locations.each do |location| %>
-    <script>
-      all_locs.push("<%= location.address %>, New York")
-      console.log(all_locs)
-    </script>
   <% end %>
+<% end %>
 
 
-    <!-- MAP BODY CODE -->
-    <body>
-    <div id='map'></div>
-    <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
-    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
-    <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic2l2YW5hZGxlciIsImEiOiJjanMweHF1dG4xb3FzM3lvM2x1YXgxenk5In0.MyibGT8NsyJQNO-KIzUWcw';
-    // eslint-disable-next-line no-undef
 
-    //step one: create the map
+  <!-- MAP BODY CODE -->
+  <body>
+  <div id='map'></div>
+  <script src='https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js'></script>
+  <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+  <script>
+  mapboxgl.accessToken = 'pk.eyJ1Ijoic2l2YW5hZGxlciIsImEiOiJjanMweHF1dG4xb3FzM3lvM2x1YXgxenk5In0.MyibGT8NsyJQNO-KIzUWcw';
+  // eslint-disable-next-line no-undef
 
-    //step two: for each (hint hint) of the elements in the JS array,
-    //send a query to the api and create a new marker, adding it to the extisting map
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9',
-      center: [-74.012498, 40.703987],
-      zoom: 10
-    });
+  //step one: create the map
 
-    all_locs.forEach(function(addressString){
-      iteratorCallBack(addressString, map)
-      console.log(map)
-    });
+  //step two: for each (hint hint) of the elements in the JS array,
+  //send a query to the api and create a new marker, adding it to the extisting map
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [-74.012498, 40.703987],
+    zoom: 11
+  });
 
+  all_event_locs.forEach(function(element){
+    iteratorCallBack(element.address, element.type, map)
+  });
 
-    //iterate through all_locs array to add markers
-    //in the iteration, invoke the helper method below to create a marker for each location's address
+  //iterate through all_locs array to add markers
+  //in the iteration, invoke the helper method below to create a marker for each location's address
 
-    function iteratorCallBack(addressString, map){
-      console.log(addressString, map)
-      var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-      mapboxClient.geocoding.forwardGeocode({
-        query: addressString,
-        autocomplete: false,
-        limit: 1
-      })
-      .send()
-      .then(function (response) {
-        if (response && response.body && response.body.features && response.body.features.length) {
-          var feature = response.body.features[0];
-
-          new mapboxgl.Marker({color: "green"})
+  function iteratorCallBack(addressString, type, map){
+    var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+    mapboxClient.geocoding.forwardGeocode({
+      query: addressString,
+      autocomplete: false,
+      limit: 1
+    })
+    .send()
+    .then(function (response) {
+      if (response && response.body && response.body.features && response.body.features.length) {
+        var feature = response.body.features[0];
+        var color
+        if (type == "Happy Hour"){
+          color = "red"
+        } else if (type == "Escape Room"){
+          color = "blue"
+        } else if (type == "Park"){
+          color = "green"
+        } else if (type == "Cats"){
+         color = "magenta"
+       } else if (type == "Code"){
+         color = "purple"
+       } else if (type == "Restaurant"){
+         color = "yellow"
+       } else if (type == "Store"){
+         color = "orange"
+       } else if (type == "Arcade"){
+         color = "cyan"
+       } else {
+          color = "black"
+        }
+        return new mapboxgl.Marker({color: color})
           .setLngLat(feature.center)
           .addTo(map);
-        }
-      });
-    }
-    </script>
-    </body>
-    </html>
-    <!-- END OF MAP -->
+      }
+    });
+  }
+  </script>
+  </body>
+  </html>
+  <!-- END OF MAP -->
 </div>

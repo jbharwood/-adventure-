@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     render :new
   end
 
-  def create #handles the POST request to /login
+  def create
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
