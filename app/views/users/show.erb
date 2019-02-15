@@ -3,7 +3,7 @@
 </div>
 <div id="container">
   <div id="left">
-    <img id="avatar" src="https://image.flaticon.com/icons/png/512/65/65581.png">
+    <img id="avatar" src=" <%= Faker::Avatar.image %>">
 
     <p class="user_info"><strong>Name: </strong><%=@user.name %> </p>
     <p class="user_info"><strong>Age: </strong><%=@user.age %> </p>
@@ -14,7 +14,7 @@
       <% end %><br>
       <% if @user.id == current_user.id %>
         <%= button_to 'Delete Account', user_path(@user), method: :delete, :class => 'edit_button', data: { confirm: 'are u sure lol' } %><br>
-        <%= button_to 'Log Out', logout_path, method: :delete, :class => 'edit_button', data: { confirm: 'wanna logout?  lol' } %>
+        <%= button_to 'Log Out', logout_path, method: :delete, :class => 'edit_button', data: { confirm: 'Want to Logout?'} %>
       <% end %>
       <br>
     </div>
